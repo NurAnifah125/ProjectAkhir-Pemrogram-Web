@@ -3,37 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
     <title>web wisata</title>
-=======
     <title>TRAVEL QUARTET</title>
->>>>>>> 935f27a (Menambahkan informasi Wisata)
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <!-- icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <!-- css -->
     <link rel="stylesheet" href="style.css" />
+
+     <!--========= google font link ========-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
   </head>
   <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"></a>
         <a class="navbar-brand" href="#">
-<<<<<<< HEAD
           <img class="logo" src="LOGO.jpg" alt="" />
         </a>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-=======
-          <img class="logo" src="LOGO.jpg" alt="" style="width: 100%; height: 100px;"/>
-        </a>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 500px;"  />
->>>>>>> 935f27a (Menambahkan informasi Wisata)
-          <button class="btn" type="submit">Search</button>
+        <div class="search-container">
+          <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 500px;"/> 
+          <i class="bi bi-search"></i>
         </form>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,12 +62,17 @@
                 ><b>Ulasan<i></i></b
               ></a>
             </li>
-            <button class="btn" type="submit">Masuk</button>
+            <li class="nav-item">
+              <a class="nav-link" style="background-color: rgb(143, 143, 201); border-radius:10px;" href=""
+                ><b>Login<i></i></b
+              ></a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- end navbar -->
+
     <div class="nav">
       <ul>
         <li>
@@ -81,6 +98,7 @@
         </li>
       </ul>
     </div>
+
     <!-- carousel -->
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -92,19 +110,19 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="gambar/magelang/CandiBorobudur/8.jpg" class="d-block w-100" alt="gambar1" />
+          <img src="gambar/magelang/CandiBorobudur/8.jpg" class="d-block w-100" alt="gambar1" style="width: 100%; height: 600px; object-fit: cover"/>
         </div>
         <div class="carousel-item">
-          <img src="gambar/magelang/CandiMendut/7.jpg" class="d-block w-100" alt="gambar2" />
+          <img src="gambar/magelang/CandiMendut/7.jpg" class="d-block w-100" alt="gambar2" style="width: 100%; height: 600px; object-fit: cover" />
         </div>
         <div class="carousel-item">
-          <img src="gambar/magelang/CandiGedong9/1.jpg" class="d-block w-100" alt="gambar3" />
+          <img src="gambar/magelang/CandiGedong9/1.jpg" class="d-block w-100" alt="gambar3" style="width: 100%; height: 600px; object-fit: cover"/>
         </div>
         <div class="carousel-item">
-          <img src="gambar/magelang/EnamLangit/1.jpg" class="d-block w-100" alt="gambar3" />
+          <img src="gambar/magelang/EnamLangit/1.jpg" class="d-block w-100" alt="gambar3" style="width: 100%; height: 600px; object-fit: cover" />
         </div>
         <div class="carousel-item">
-          <img src="gambar/magelang/SILANCURHIGHLAND/8.jpg" class="d-block w-100" alt="gambar3" />
+          <img src="gambar/magelang/SILANCURHIGHLAND/8.jpg" class="d-block w-100" alt="gambar3" style="width: 100%; height: 600px; object-fit: cover"/>
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -122,22 +140,43 @@
     <section class="ourproduct" id="ourproduct">
       <h2 class="h2 section-title"><b>Yang Wajib di Jawa Tengah</b></h2>
       <p class="section">Pilih kategori untuk menyaring rekomendasi</p>
+      <!-- <div class="icons-container" >
+            <div class="icons">
+              <span>Travellers Choice</span>
+            </div>
+            <div class="icons">
+              <span>Objek wisata yang dikunjungi</span>
+            </div>
+            <div class="icons">
+              <span>Makanan Lezat</span>
+            </div>
+            <div class="icons">
+              <span>Hotel Terpopuler</span>
+            </div>
+            <div class="icons">
+              <span>Sesuai untuk Keluarga</span>
+            </div>
+          </div> <br> -->
       <div class="row text-center mb-2">
         <div class="col"></div>
       </div>
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 col-lg4 col-xl-3 mb-3">
           <div class="card">
-<<<<<<< HEAD
-            <img src="gambar/salatiga/1.jpg" class="card-img-top" alt=" " />
-=======
             <img src="gambar/salatiga/1.jpg" class="card-img-top" alt=" " style="width: 100%; height: 200px; object-fit: cover" />
->>>>>>> 935f27a (Menambahkan informasi Wisata)
             <div class="card-body">
               <p class="card-text">Saloka</p>
-              <div class="d-flex justify-content-between align-items-center">
+                <div class="star-rating" style="color:#ffc000">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
                 <span class="text">Taman Hiburan</span>
-              </div>
             </div>
           </div>
         </div>
@@ -146,9 +185,17 @@
             <img src="gambar/semarang/1.jpg" class="card-img-top" alt=" " style="width: 100%; height: 200px; object-fit: cover" />
             <div class="card-body">
               <p class="card-text">Rawa Pening</p>
-              <div class="d-flex justify-content-between align-items-center">
+                 <div class="star-rating" style="color:#ffc000">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
                 <span class="text">Wisata Alam, Danau</span>
-              </div>
             </div>
           </div>
         </div>
@@ -157,9 +204,17 @@
             <img src="gambar/semarang/2.jpg" class="card-img-top" alt=" " style="width: 100%; height: 200px; object-fit: cover" />
             <div class="card-body">
               <p class="card-text">Umbul Sidomukti</p>
-              <div class="d-flex justify-content-between align-items-center">
+                  <div class="star-rating" style="color:#ffc000">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
                 <span class="text">Kolam renang alami dengan air jernih</span>
-              </div>
             </div>
           </div>
         </div>
@@ -168,16 +223,17 @@
             <img src="gambar/semarang/3.jpg" class="card-img-top" alt=" " style="width: 100%; height: 200px; object-fit: cover" />
             <div class="card-body">
               <p class="card-text">Taman Bunga Celosia</p>
-<<<<<<< HEAD
-              <br />
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="price text-primary">Taman Bunga</span>
-=======
-              <div class="d-flex justify-content-between align-items-center">
+                  <div class="star-rating" style="color:#ffc000">
+										<ul class="list-inline">
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+											<li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
                 <span class="text">Taman Bunga</span>
->>>>>>> 935f27a (Menambahkan informasi Wisata)
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -212,11 +268,10 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#ourproduct">Our Product</a></li>
-              <li><a href="#howtoorder">How to Order</a></li>
-              <li><a href="#F&Q">F & Q</a></li>
+              <li><a href="#home">Telusuri</a></li>
+              <li><a href="#about">Trip</a></li>
+              <li><a href="#ourproduct">Ulasan</a></li>
+              <li><a href="#howtoorder">Daftar/Masuk</a></li>
             </ul>
           </div>
         </div>
@@ -225,7 +280,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by <a href="#">OurBigDeal</a>.</p>
+            <p class="copyright-text">Copyright &copy; 2024 All Rights Reserved by <a href="#">TRAVELQUARTET</a>.</p>
           </div>
 
           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -250,5 +305,12 @@
     <!-- end footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+    $(".wish-icon i").click(function(){
+    $(this).toggleClass("fa-heart fa-heart-o");
+      });
+    });	
+</script>
   </body>
 </html>
