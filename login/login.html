@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Login Form</h2>
+        <div class="login-content">
+          <form id="loginForm" action="proses_login.php" method="post">
+            <input type="text" id="adminNumber" name="adminNumber" placeholder="Enter Admin Number" />
+            <input type="password" id="password" name="password" placeholder="Enter Password" />
+            <button type="submit">Login</button>
+          </form>
+
+          <p class="error-message" id="error" style="display: none">Invalid admin number or password.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function (event) {
+        var adminNumber = document.getElementById("adminNumber").value;
+        var password = document.getElementById("password").value;
+
+        if (adminNumber !== "12345" || password !== "password123") {
+          event.preventDefault();
+          document.getElementById("error").style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
