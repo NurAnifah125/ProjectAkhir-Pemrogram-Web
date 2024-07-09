@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-container {
+    background-color: #e2e2db;
+    padding: 20px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.login-container img.logo {
+    width: 100%;
+    height: 150px;
+}
+.login-container h2 {
+    margin: 20px 0;
+    font-size: 20px;
+    color: #333;
+}
+.login-container form {
+    margin-top: 20px;
+}
+.login-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+.login-container input.login_input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.login-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #00b894;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.login-container input[type="submit"]:hover {
+    background-color: #019d82;
+}
+.login-container a {
+    display: block;
+    margin-top: 10px;
+    color: #00b894;
+    text-decoration: none;
+}
+.login-container a:hover {
+    text-decoration: underline;
+}
