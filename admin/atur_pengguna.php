@@ -34,9 +34,10 @@ $admins = getAdmins(getKoneksi());
    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light d-lg-none" style="background-color: #87CEEB;">
+<nav class="navbar navbar-expand-lg navbar-light d-lg-none" style="background-color: #87CEEB;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><i class="bi bi-person-circle"></i> Welcome, <?php echo $_SESSION['nama']; ?>!</a>
+      
+    <a class="navbar-brand" href="#"><i class="bi bi-person-circle"></i> Welcome, <?php echo $_SESSION['nama']; ?>!</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,7 +47,10 @@ $admins = getAdmins(getKoneksi());
             <a class="nav-link" href="dashboard.php"><i class="fas fa-home"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
+            <a class="nav-link" href="./trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
@@ -58,17 +62,21 @@ $admins = getAdmins(getKoneksi());
       </div>
     </div>
   </nav>
-
   <div class="sidebar d-none d-lg-block">
     <div class="text-center mb-4">
     <h1><i class="bi bi-person-circle"></i></h1>
       <h3>Welcome</h3>
+      <!-- Tampilkan nama pengguna -->
       <p><?php echo $_SESSION['nama']; ?></p>
+      
+
     </div>
     <a href="dashboard.php"><i class="fas fa-home"></i> Home</a>
-    <a href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
+    <a href="./trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+    <a href="./kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
     <a href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
     <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
   </div>
 
   <div class="main-content">
