@@ -1,0 +1,74 @@
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #87CEEB;
+  padding-top: 20px;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+.sidebar .text-center p {
+  color: black;
+}
+
+.text-center p , h3 {
+  color: black;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.5s;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {
+    float: left;
+    padding: 15px;
+  }
+  .sidebar a:hover {
+    background-color: #575757;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+.img-profile {
+width: 250px; /* Sesuaikan ukuran sesuai kebutuhan */
+height: 250px; /* Sesuaikan ukuran sesuai kebutuhan */
+border: 2px solid #000; /* Menambahkan border hitam 2px */
+border-radius: 50%; /* Membuat lingkaran */
+object-fit: cover; /* Menyesuaikan gambar agar sesuai dengan ukuran */
+}
+
+.foto-profile {
+  width: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+  height: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+  border: 2px solid white; /* Menambahkan border hitam 2px */
+  border-radius: 50%; /* Membuat lingkaran */
+  object-fit: cover; /* Menyesuaikan gambar agar sesuai dengan ukuran */
+  }
