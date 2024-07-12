@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
 $host = 'localhost'; 
-$dbname = 'bukupintar'; 
+$dbname = 'travel'; 
 $username = 'root'; 
 $password = ''; 
 
