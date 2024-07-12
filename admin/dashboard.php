@@ -49,10 +49,10 @@ $admins = getAdmins(getKoneksi());
             <a class="nav-link" href="dashboard.php"><i class="fas fa-home"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_buku.php"><i class="fas fa-book"></i> Wisata</a>
+            <a class="nav-link" href="./trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_buku.php"><i class="fas fa-book"></i> Kuliner</a>
+            <a class="nav-link" href="./kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
@@ -74,10 +74,10 @@ $admins = getAdmins(getKoneksi());
 
     </div>
     <a href="#"><i class="fas fa-home"></i> Home</a>
-<a href="atur_wisata.php"><i class="fas fa-map-marked-alt"></i> Wisata</a>
-<a href="atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
-<a href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
-<a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="./trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+    <a href="./kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
+    <a href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
 
   </div>
 

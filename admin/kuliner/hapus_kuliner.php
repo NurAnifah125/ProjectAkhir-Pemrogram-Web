@@ -8,50 +8,40 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Sertakan file koneksi.php
-require_once "../koneksi.php";
+require_once "../../koneksi.php";
 
 // Mendapatkan koneksi ke database
 $koneksi = getKoneksi();
 
-// Periksa apakah parameter ISBN telah diterima
-if (isset($_GET['isbn'])) {
-    $isbn = mysqli_real_escape_string($koneksi, $_GET['isbn']);
+// Ambil trip yang akan dihapus
+if (isset($_GET['id'])) {
+    $kuliner_id = $_GET['id'];
 
-    // Ambil informasi buku untuk menghapus file
-    $query_select = "SELECT File_Buku, Cover_Buku FROM buku WHERE ISBN = '$isbn'";
+    // Ambil path foto yang akan dihapus
+    $query_select = "SELECT Photo FROM kuliner WHERE ID = '$kuliner_id'";
     $result_select = mysqli_query($koneksi, $query_select);
-    $row = mysqli_fetch_assoc($result_select);
+    $kuliner = mysqli_fetch_assoc($result_select);
 
-    // Hapus file buku dan cover dari server
-    if ($row) {
-        $file_buku = "../" . $row['File_Buku'];
-        $cover_buku = "../" . $row['Cover_Buku'];
-
-        if (file_exists($file_buku)) {
-            unlink($file_buku);
-        } else {
-            echo '<script>alert("File buku tidak ditemukan!");</script>';
+    // Hapus trip dari database
+    $query_delete = "DELETE FROM kuliner WHERE ID = '$kuliner_id'";
+    if (mysqli_query($koneksi, $query_delete)) {
+        // Hapus foto dari server jika ada
+        if (!empty($kuliner['Photo'])) {
+            $pathToDelete = "../../" . $kuliner['Photo'];
+            if (file_exists($pathToDelete)) {
+                unlink($pathToDelete); // Hapus file dari server
+            }
         }
-
-        if (file_exists($cover_buku)) {
-            unlink($cover_buku);
-        } else {
-            echo '<script>alert("File cover tidak ditemukan!");</script>';
-        }
-
-        // Query untuk menghapus buku berdasarkan ISBN
-        $query = "DELETE FROM buku WHERE ISBN = '$isbn'";
-        if (mysqli_query($koneksi, $query)) {
-            // Redirect ke halaman manajemen buku dengan pesan sukses
-            header("Location: atur_buku.php?status=sukses");
-            exit();
-        } else {
-            echo '<script>alert("Terjadi kesalahan saat menghapus buku dari database!");</script>';
-        }
+        
+        // Redirect ke halaman manajemen kuliner
+        header("Location: atur_kuliner.php");
+        exit();
     } else {
-        echo '<script>alert("Buku tidak ditemukan!");</script>';
+        echo '<script>alert("Terjadi kesalahan saat menghapus kuliner!");</script>';
+        exit();
     }
 } else {
-    echo '<script>alert("ISBN tidak diberikan!");</script>';
+    echo '<script>alert("ID kuliner tidak ditemukan!");</script>';
+    exit();
 }
 ?>

@@ -8,74 +8,84 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Sertakan file koneksi.php
-require_once "../koneksi.php";
+require_once "../../koneksi.php";
 
 // Mendapatkan koneksi ke database
 $koneksi = getKoneksi();
 
-// Periksa apakah parameter ISBN telah diterima
-if (isset($_GET['isbn'])) {
-    $isbn = mysqli_real_escape_string($koneksi, $_GET['isbn']);
-    
-    // Ambil informasi buku berdasarkan ISBN
-    $query = "SELECT * FROM buku WHERE ISBN = '$isbn'";
+// Ambil data trip berdasarkan ID
+if (isset($_GET['id'])) {
+    $trip_id = $_GET['id'];
+    $query = "SELECT * FROM trip WHERE ID = '$trip_id'";
     $result = mysqli_query($koneksi, $query);
-    $buku = mysqli_fetch_assoc($result);
-    
-    if (!$buku) {
-        echo '<script>alert("Buku tidak ditemukan!"); window.location.href="atur_buku.php";</script>';
-        exit();
-    }
-} else {
-    echo '<script>alert("ISBN tidak diberikan!"); window.location.href="atur_buku.php";</script>';
-    exit();
+    $trip = mysqli_fetch_assoc($result);
 }
 
-// Proses form saat data di-submit
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $judul = mysqli_real_escape_string($koneksi, $_POST['judul']);
-    $penulis = mysqli_real_escape_string($koneksi, $_POST['penulis']);
-    $penerbit = mysqli_real_escape_string($koneksi, $_POST['penerbit']);
-    $tahun_terbit = mysqli_real_escape_string($koneksi, $_POST['tahun_terbit']);
-    $deskripsi = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
+// Proses pengubahan trip
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil data dari form
+    $id = $_POST['id'];
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    $lokasi = mysqli_real_escape_string($koneksi, $_POST['lokasi']);
     $kategori = mysqli_real_escape_string($koneksi, $_POST['kategori']);
+    $deskripsi = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
+    $rating = mysqli_real_escape_string($koneksi, $_POST['rating']);
     
-    // Handle cover upload
-    $cover_buku = $buku['Cover_Buku']; // Default to existing cover
-    if (isset($_FILES['cover_baru']) && $_FILES['cover_baru']['error'] === UPLOAD_ERR_OK) {
-        $cover_tmp = $_FILES['cover_baru']['tmp_name'];
-        $cover_name = $_FILES['cover_baru']['name'];
-        $cover_ext = pathinfo($cover_name, PATHINFO_EXTENSION);
-        $cover_baru_name = uniqid() . '.' . $cover_ext;
-        $cover_baru_path = 'assets/foto/' . $cover_baru_name;
-        
-        // Move the uploaded file
-        if (move_uploaded_file($cover_tmp, '../' . $cover_baru_path)) {
-            // Delete the old cover if a new one is uploaded
-            if (file_exists('../' . $cover_buku)) {
-                unlink('../' . $cover_buku);
-            }
-            $cover_buku = $cover_baru_path;
+// Cek apakah ada file foto yang diunggah
+if (!empty($_FILES['photo']['name'])) {
+  // Hapus foto lama jika ada
+  if (!empty($trip['Photo'])) {
+      $pathToDelete = "../../" . $trip['Photo'];
+      if (file_exists($pathToDelete)) {
+          unlink($pathToDelete); // Hapus file dari server
+      }
+  }
+        // Memeriksa jenis file foto
+        $photoType = $_FILES['photo']['type'];
+        $allowedPhotoTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($photoType, $allowedPhotoTypes)) {
+            echo '<script>alert("Hanya file gambar (JPEG, PNG, GIF) yang diperbolehkan untuk foto!");</script>';
+            exit();
         }
+
+        // Direktori penyimpanan file
+        $targetDirPhoto = "../../assets/foto/";
+        // Nama file setelah diunggah
+        $targetFilePhoto = $targetDirPhoto . basename($_FILES["photo"]["name"]);
+
+        // Pindahkan file yang diunggah ke direktori tujuan
+        if (move_uploaded_file($_FILES["photo"]["tmp_name"], $targetFilePhoto)) {
+            // Potong bagian "../../" dari path
+            $dbPathPhoto = str_replace("../../", "", $targetFilePhoto);
+
+            // Query untuk mengubah trip dengan foto
+            $query = "UPDATE trip SET Nama='$nama', Lokasi='$lokasi', Kategori='$kategori', Deskripsi='$deskripsi', Rating='$rating', Photo='$dbPathPhoto' WHERE ID='$id'";
+        } else {
+            // Jika gagal mengunggah file
+            echo '<script>alert("Terjadi kesalahan saat mengunggah file!");</script>';
+            exit();
+        }
+    } else {
+        // Query untuk mengubah trip tanpa mengubah foto
+        $query = "UPDATE trip SET Nama='$nama', Lokasi='$lokasi', Kategori='$kategori', Deskripsi='$deskripsi', Rating='$rating' WHERE ID='$id'";
     }
 
-    // Update buku dalam database
-    $query = "UPDATE buku SET Judul = '$judul', Penulis = '$penulis', Penerbit = '$penerbit', Tahun_Terbit = '$tahun_terbit', Deskripsi = '$deskripsi', Kategori = '$kategori', Cover_Buku = '$cover_buku' WHERE ISBN = '$isbn'";
-    
+    // Eksekusi query
     if (mysqli_query($koneksi, $query)) {
-        echo '<script>alert("Buku berhasil diperbarui!"); window.location.href="atur_buku.php";</script>';
+        // Redirect ke halaman manajemen trip
+        header("Location: atur_trip.php");
+        exit();
     } else {
-        echo '<script>alert("Terjadi kesalahan saat memperbarui buku!");</script>';
+        echo '<script>alert("Terjadi kesalahan saat mengubah trip!");</script>';
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Buku</title>
+  <title>Ubah Trip</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -98,7 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a class="nav-link" href="dashboard.php"><i class="fas fa-home"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
+            <a class="nav-link" href="atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
@@ -114,61 +127,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="text-center mb-4">
     <h1><i class="bi bi-person-circle"></i></h1>
       <h3>Welcome</h3>
-      <p><?php echo htmlspecialchars($_SESSION['nama']); ?></p>
+      <p><?php echo $_SESSION['nama']; ?></p>
     </div>
-    <a href="dashboard.php"><i class="fas fa-home"></i> Home</a>
-    <a href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
-    <a href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
-    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
+    <a href="../dashboard.php"><i class="fas fa-home"></i> Home</a>
+    <a href="../trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+    <a href="../kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
+    <a href="../atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
+    <a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
 <div class="main-content">
-<div class="container-fluid">
-    <h2><i class="bi bi-journal-code"></i> Ubah Buku</h2>
-    <form action="" method="POST" enctype="multipart/form-data">
-    <div class="row">
-        <div class=" mb-3">
-            <label for="judul" class="form-label">Judul</label>
-            <input type="text" class="form-control" id="judul" name="judul" value="<?php echo htmlspecialchars($buku['Judul']); ?>" required>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="penerbit" class="form-label">Penerbit</label>
-            <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?php echo htmlspecialchars($buku['Penerbit']); ?>" required>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="penulis" class="form-label">Penulis</label>
-            <input type="text" class="form-control" id="penulis" name="penulis" value="<?php echo htmlspecialchars($buku['Penulis']); ?>" required>
-        </div>
-    </div>
-    <div class="row">
-    <div class="col-md-6 mb-3">
-            <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-            <input type="text" class="form-control" id="tahun_terbit" name="tahun_terbit" value="<?php echo htmlspecialchars($buku['Tahun_Terbit']); ?>" required>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="kategori" class="form-label">Kategori</label>
-            <select class="form-control" id="kategori" name="kategori" required>
-                <option value="Fiksi" <?php echo $buku['Kategori'] == 'Fiksi' ? 'selected' : ''; ?>>Fiksi</option>
-                <option value="Non-Fiksi" <?php echo $buku['Kategori'] == 'Non-Fiksi' ? 'selected' : ''; ?>>Non-Fiksi</option>
-            </select>
-        </div>
-    </div>
-    <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required><?php echo htmlspecialchars($buku['Deskripsi']); ?></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="cover_baru" class="form-label">Cover Buku (opsional)</label>
-            <input class="form-control" type="file" id="cover_baru" name="cover_baru">
-            <p>Cover saat ini: <img src="../<?php echo htmlspecialchars($buku['Cover_Buku']); ?>" alt="Cover Buku" style="width: 50px; height: 70px;"></p>
-        </div>
-        <button type="submit" class="btn btn-primary">Perbarui</button>
-        <a href="atur_buku.php" class="btn btn-secondary">Batal</a>
-    </form>
-</div>
-</div>
+  <div class="container-fluid">
+    <h2><i class="bi bi-journal-plus"></i> Ubah Trip</h2>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Form Ubah Trip -->
+    <form action="ubah_trip.php?id=<?php echo $trip['ID']; ?>" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?php echo $trip['ID']; ?>">
+      <div class="mb-3">
+        <label for="nama" class="form-label">Nama:</label>
+        <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $trip['Nama']; ?>" required>
+      </div>
+      <div class="mb-3">
+        <label for="lokasi" class="form-label">Lokasi:</label>
+        <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?php echo $trip['Lokasi']; ?>" required>
+      </div>
+      <div class="mb-3">
+        <label for="kategori" class="form-label">Kategori:</label>
+        <select class="form-control" id="kategori" name="kategori" required>
+          <option value="Wisata Alam" <?php echo ($trip['Kategori'] == 'Wisata') ? 'selected' : ''; ?>>Wisata Alam</option>
+          <option value="Wisata Budaya" <?php echo ($trip['Kategori'] == 'Budaya') ? 'selected' : ''; ?>>Wisata Budaya</option>
+          <option value="Wisata Kuliner" <?php echo ($trip['Kategori'] == 'Budaya') ? 'selected' : ''; ?>>Wisata Kuliner</option>
+          <option value="Wisata Pendidikan" <?php echo ($trip['Kategori'] == 'Pendidikan') ? 'selected' : ''; ?>>Wisata Pendidikan</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="deskripsi" class="form-label">Deskripsi:</label>
+        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required><?php echo $trip['Deskripsi']; ?></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating:</label>
+        <input type="number" class="form-control" id="rating" name="rating" value="<?php echo $trip['Rating']; ?>" required>
+      </div>
+      <div class="mb-3">
+        <label for="photo" class="form-label">Upload Foto (JPEG, PNG, GIF):</label>
+        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png, .gif">
+        <?php if (!empty($trip['Photo'])): ?>
+          <img src="../../<?php echo $trip['Photo']; ?>" alt="Photo" width="100" class="mt-2">
+        <?php endif; ?>
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan Perubahan</button>
+    </form>
+  </div>
+</div>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

@@ -8,13 +8,13 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Sertakan file koneksi.php
-require_once "../koneksi.php";
+require_once "../../koneksi.php";
 
 // Mendapatkan koneksi ke database
 $koneksi = getKoneksi();
 
-// Ambil semua data buku
-$query = "SELECT * FROM buku";
+// Ambil semua data trip
+$query = "SELECT * FROM trip";
 $result = mysqli_query($koneksi, $query);
 
 function potongDeskripsi($deskripsi, $panjang) {
@@ -30,7 +30,7 @@ function potongDeskripsi($deskripsi, $panjang) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Buku</title>
+  <title>Manajemen Trip</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -50,16 +50,19 @@ function potongDeskripsi($deskripsi, $panjang) {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-link" href="../dashboard.php"><i class="fas fa-home"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
+            <a class="nav-link" href="../trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
+            <a class="nav-link" href="../kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a class="nav-link" href="../atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </li>
         </ul>
       </div>
@@ -71,46 +74,47 @@ function potongDeskripsi($deskripsi, $panjang) {
       <h3>Welcome</h3>
       <p><?php echo $_SESSION['nama']; ?></p>
     </div>
-    <a href="dashboard.php"><i class="fas fa-home"></i> Home</a>
-    <a href="atur_buku.php"><i class="fas fa-book"></i> Buku</a>
-    <a href="atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
-    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="../dashboard.php"><i class="fas fa-home"></i> Home</a>
+    <a href="../trip/atur_trip.php"><i class="fas fa-map-marked-alt"></i> Trip</a>
+    <a href="../kuliner/atur_kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
+    <a href="../atur_pengguna.php"><i class="fas fa-users-cog"></i> Pengguna</a>
+    <a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
 <div class="main-content">
   <div class="container-fluid">
-    <h2><i class="bi bi-journal-bookmark"></i> Manajemen Buku</h2>
+    <h2><i class="bi bi-journal-bookmark"></i> Manajemen Trip</h2>
 
-    <!-- Tombol Tambah Buku -->
-    <a href="tambah_buku.php" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Buku</a>
-    <h4 class="pt-4"><i class="bi bi-journal-text"></i> Daftar Buku</h4>
-    <!-- Tabel Daftar Buku -->
+    <!-- Tombol Tambah Trip -->
+    <a href="tambah_trip.php" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Trip</a>
+    <h4 class="pt-4"><i class="bi bi-journal-text"></i> Daftar Trip</h4>
+    <!-- Tabel Daftar Trip -->
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>ISBN</th>
-            <th>Judul</th>
-            <th>Penulis</th>
-            <th>Penerbit</th>
-            <th>Tahun Terbit</th>
-            <th>Deskripsi</th>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Lokasi</th>
             <th>Kategori</th>
+            <th>Deskripsi</th>
+            <th>Rating</th>
+            <th>Photo</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
           <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <tr>
-              <td><?php echo $row['ISBN']; ?></td>
-              <td><?php echo $row['Judul']; ?></td>
-              <td><?php echo $row['Penulis']; ?></td>
-              <td><?php echo $row['Penerbit']; ?></td>
-              <td><?php echo $row['Tahun_Terbit']; ?></td>
-              <td><?php echo potongDeskripsi($row['Deskripsi'], 50); ?></td>
+              <td><?php echo $row['ID']; ?></td>
+              <td><?php echo $row['Nama']; ?></td>
+              <td><?php echo $row['Lokasi']; ?></td>
               <td><?php echo $row['Kategori']; ?></td>
+              <td><?php echo potongDeskripsi($row['Deskripsi'], 50); ?></td>
+              <td><?php echo $row['Rating']; ?></td>
+              <td><img src="../../<?php echo $row['Photo']; ?>" alt="photo" width="50"></td>
               <td>
-                <a href="ubah_buku.php?isbn=<?php echo $row['ISBN']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                <a href="hapus_buku.php?isbn=<?php echo $row['ISBN']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini?');"><i class="fas fa-trash-alt"></i> Delete</a>
+                <a href="ubah_trip.php?id=<?php echo $row['ID']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                <a href="hapus_trip.php?id=<?php echo $row['ID']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus trip ini?');"><i class="fas fa-trash-alt"></i> Delete</a>
               </td>
             </tr>
           <?php endwhile; ?>
@@ -125,4 +129,3 @@ function potongDeskripsi($deskripsi, $panjang) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
-
