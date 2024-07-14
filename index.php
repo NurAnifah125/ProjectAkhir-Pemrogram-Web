@@ -102,13 +102,91 @@
     </button>
   </div>
   <!-- End Carousel -->
+  <!-- Trip Section -->
+  <div class="container mt-3">
+  <h2>Yang Wajib Ada Di Jawa Tengah.</h2>
+    <h3 class="mb-4">Wisata</h3>
+    <div class="row">
+      <?php
+      require_once "koneksi.php";
+      $tripQuery = "SELECT * FROM trip";
+      $tripResult = $koneksi->query($tripQuery);
+      if ($tripResult->num_rows > 0) {
+          while ($trip = $tripResult->fetch_assoc()) {
+              echo '<div class="col-md-4 mb-4">';
+              echo '  <div class="card">';
+              echo '    <img src="' . $trip['Photo'] . '" class="card-img-top" alt="' . $trip['Nama'] . '">';
+              echo '    <div class="card-body">';
+              echo '      <h5 class="card-title"><a href="detail.php?trip=' . $trip['ID'] . '">' . $trip['Nama'] . '</a></h5>';
+              echo '      <p class="card-text">' . $trip['Lokasi'] . '</p>';
+              echo '      <p class="card-text">' . $trip['Kategori'] . '</p>';
+              echo '      <p class="card-text">' . $trip['Deskripsi'] . '</p>';
+              echo '      <div class="card-text">';
+              for ($i = 0; $i < 5; $i++) {
+                  if ($i < $trip['Rating']) {
+                      echo '<i class="fa fa-star text-warning"></i>';
+                  } else {
+                      echo '<i class="fa fa-star text-secondary"></i>';
+                  }
+              }
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '</div>';
+          }
+      } else {
+          echo '<p class="text-center">No trips available.</p>';
+      }
+      ?>
+    </div>
+  </div>
+  <!-- End Trip Section -->
+
+  <!-- Kuliner Section -->
+  <div class="container mt-5">
+    <h3 class="mb-4">Kuliner</h3>
+    <div class="row">
+      <?php
+      $kulinerQuery = "SELECT * FROM kuliner";
+      $kulinerResult = $koneksi->query($kulinerQuery);
+      if ($kulinerResult->num_rows > 0) {
+          while ($kuliner = $kulinerResult->fetch_assoc()) {
+              echo '<div class="col-md-4 mb-4">';
+              echo '  <div class="card">';
+              echo '    <img src="' . $kuliner['Photo'] . '" class="card-img-top" alt="' . $kuliner['Nama'] . '">';
+              echo '    <div class="card-body">';
+              echo '      <h5 class="card-title"><a href="detail.php?kuliner=' . $kuliner['ID'] . '">' . $kuliner['Nama'] . '</a></h5>';
+              echo '      <p class="card-text">' . $kuliner['Lokasi'] . '</p>';
+              echo '      <p class="card-text">' . $kuliner['Kategori'] . '</p>';
+              echo '      <p class="card-text">' . $kuliner['Deskripsi'] . '</p>';
+              echo '      <div class="card-text">';
+              for ($i = 0; $i < 5; $i++) {
+                  if ($i < $kuliner['Rating']) {
+                      echo '<i class="fa fa-star text-warning"></i>';
+                  } else {
+                      echo '<i class="fa fa-star text-secondary"></i>';
+                  }
+              }
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '</div>';
+          }
+      } else {
+          echo '<p class="text-center">No culinary spots available.</p>';
+      }
+      $koneksi->close();
+      ?>
+    </div>
+  </div>
+  <!-- End Kuliner Section -->
 
   <!-- Footer -->
-  <footer class="footer mt-auto py-3 bg-light">
+  <div class="footer mt-auto py-3">
     <div class="container text-center">
       <span class="text-muted">© 2023 Travel Quartet. All rights reserved.</span>
     </div>
-  </footer>
+    </div>
   <!-- End Footer -->
 
   <!-- Bootstrap JS and dependencies -->
