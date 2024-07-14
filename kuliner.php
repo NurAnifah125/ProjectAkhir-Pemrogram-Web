@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRAVEL QUARTET - Semua Trip</title>
+  <title>TRAVEL QUARTET - Semua Kuliner</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
   <!-- Bootstrap Icons -->
@@ -51,32 +51,32 @@
   </div>
   <!-- End Navbar -->
 
-  <!-- Trip Section -->
+  <!-- Kuliner Section -->
   <div class="container mt-5">
-    <h2 class="mb-4">Semua Wisata</h2>
+    <h2 class="mb-4">Semua Kuliner</h2>
     <div class="row">
       <?php
       // Connect to database
       require_once "koneksi.php";
       
-      // Query to retrieve all trips
-      $tripQuery = "SELECT * FROM trip";
-      $tripResult = $koneksi->query($tripQuery);
+      // Query to retrieve all culinary spots
+      $kulinerQuery = "SELECT * FROM kuliner";
+      $kulinerResult = $koneksi->query($kulinerQuery);
       
-      // Display trips if there are any
-      if ($tripResult->num_rows > 0) {
-          while ($trip = $tripResult->fetch_assoc()) {
+      // Display culinary spots if there are any
+      if ($kulinerResult->num_rows > 0) {
+          while ($kuliner = $kulinerResult->fetch_assoc()) {
               echo '<div class="col-md-4 mb-4">';
               echo '  <div class="card">';
-              echo '    <img src="' . $trip['Photo'] . '" class="card-img-top" alt="' . $trip['Nama'] . '">';
+              echo '    <img src="' . $kuliner['Photo'] . '" class="card-img-top" alt="' . $kuliner['Nama'] . '">';
               echo '    <div class="card-body">';
-              echo '      <h5 class="card-title"><a href="detail.php?trip=' . $trip['ID'] . '">' . $trip['Nama'] . '</a></h5>';
-              echo '      <p class="card-text">' . $trip['Lokasi'] . '</p>';
-              echo '      <p class="card-text">' . $trip['Kategori'] . '</p>';
-              echo '      <p class="card-text">' . $trip['Deskripsi'] . '</p>';
+              echo '      <h5 class="card-title"><a href="detail.php?kuliner=' . $kuliner['ID'] . '">' . $kuliner['Nama'] . '</a></h5>';
+              echo '      <p class="card-text">' . $kuliner['Lokasi'] . '</p>';
+              echo '      <p class="card-text">' . $kuliner['Kategori'] . '</p>';
+              echo '      <p class="card-text">' . $kuliner['Deskripsi'] . '</p>';
               echo '      <div class="card-text">';
               for ($i = 0; $i < 5; $i++) {
-                  if ($i < $trip['Rating']) {
+                  if ($i < $kuliner['Rating']) {
                       echo '<i class="fa fa-star text-warning"></i>';
                   } else {
                       echo '<i class="fa fa-star text-secondary"></i>';
@@ -88,7 +88,7 @@
               echo '</div>';
           }
       } else {
-          echo '<p class="text-center">No trips available.</p>';
+          echo '<p class="text-center">No culinary spots available.</p>';
       }
       
       // Close database connection
@@ -96,7 +96,7 @@
       ?>
     </div>
   </div>
-  <!-- End Trip Section -->
+  <!-- End Kuliner Section -->
 
   <!-- Footer -->
   <div class="footer mt-auto py-3">
