@@ -4,7 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #87CEEB;
+  background-color: #e2e2db;
   padding-top: 20px;
   overflow-x: hidden;
   transition: 0.5s;
@@ -18,7 +18,7 @@
   transition: 0.3s;
 }
 .sidebar a:hover {
-  color: #f1f1f1;
+  color: #87CEEB;
 }
 .sidebar .text-center p {
   color: black;
