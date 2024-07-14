@@ -24,7 +24,7 @@
   <!-- Navbar -->
   <div class="container-xxl position-relative p-0">
     <nav class="navbar navbar-expand-lg px-4 px-lg-5 py-3 py-lg-0">
-      <a href="#" class="navbar-brand p-0">
+      <a href="index.php" class="navbar-brand p-0">
         <img class="logo" src="gambar/LOGO.jpg" alt="logo" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -33,13 +33,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav ms-auto py-0 pe-4">
           <li class="nav-item">
-            <a class="nav-link" href="#home"><b>Telusuri</b></a>
+            <a class="nav-link" href="telusuri.php"><b>Telusuri</b></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about"><b>Trip</b></a>
+            <a class="nav-link" href="trip.php"><b>Trip</b></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><b>Ulasan</b></a>
+            <a class="nav-link" href="ulasan.php"><b>Ulasan</b></a>
           </li>
         </ul>
         <form class="d-flex" role="search">
